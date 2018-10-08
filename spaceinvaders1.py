@@ -11,7 +11,18 @@ class Agent(object):
 
     # You should modify this function
     def act(self, observation, reward, done):
-        return self.action_space.sample()
+        # Dict of all color values
+        colorvalues = {80: "Ground", 162: "Yellow Text", 0: "Background", 142: "Bullet", 181: "Blockers", 50: "Ship", 134: "Alien"}
+
+        # Find ship
+        ship = -1
+        for x in range(0, 160):
+            if observation[185][x][0] == 50:
+                ship = x;
+
+        # Return 0 if ship isn't found to try and force ship to spawn
+        if ship == -1:
+            return 0
 
 ## YOU MAY NOT MODIFY ANYTHING BELOW THIS LINE OR USE
 ## ANOTHER MAIN PROGRAM

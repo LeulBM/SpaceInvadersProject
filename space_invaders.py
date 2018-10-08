@@ -33,7 +33,7 @@ if __name__ == '__main__':
     outdir = 'random-agent-results'
 
 
-    env.seed()
+    env.seed(0)
     agent = Agent(env.action_space)
 
     episode_count = 100
