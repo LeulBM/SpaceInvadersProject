@@ -3,26 +3,65 @@ import sys
 #import pdb
 import gym
 from gym import wrappers, logger
+import random
 
 class Agent(object):
-    """The world's simplest agent!"""
+    """The Twitch Shooter"""
     def __init__(self, action_space):
         self.action_space = action_space
 
     # You should modify this function
     def act(self, observation, reward, done):
         # Dict of all color values
-        colorvalues = {80: "Ground", 162: "Yellow Text", 0: "Background", 142: "Bullet", 181: "Blockers", 50: "Ship", 134: "Alien"}
+        colorvalues = {
+                80: "Ground",
+                162: "Yellow Text",
+                0: "Background",
+                142: "Bullet",  #
+                181: "Blockers",#
+                50: "Ship",
+                134: "Alien"}   #
 
         # Find ship
         ship = -1
         for x in range(0, 160):
             if observation[185][x][0] == 50:
-                ship = x;
+                ship = x
+                break
 
         # Return 0 if ship isn't found to try and force ship to spawn
         if ship == -1:
             return 0
+
+        shipleft = ship-3
+        shipright = ship+3
+
+        # Search column directly above ship
+        for y in range(184, 0, -1):
+            for x in range(shipleft, shipright):
+                redpix = observation[y][x][0]
+                objfound = colorvalues.get(redpix)
+                if objfound == "Ground":
+                    pass
+                elif objfound == "Yellow Text":
+                    pass
+                elif objfound == "Background":
+                    pass
+                elif objfound == "Ship":
+                    pass
+                elif objfound == "Blocker":
+                    pass
+                elif objfound == "Bullet":
+                    if x > ship:
+                        return 5
+                    else:
+                        return 4
+                else:
+                    return random.randint(4,5)
+
+
+
+        return random.randint(4,5);
 
 ## YOU MAY NOT MODIFY ANYTHING BELOW THIS LINE OR USE
 ## ANOTHER MAIN PROGRAM
