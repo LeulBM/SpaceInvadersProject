@@ -1,7 +1,7 @@
 #!/bin/bash
 
 trap "exit" INT
-for run in {0..100}
+for run in {1..100}
 do
-    python space_invaders.py
+    python twitchagent.py
 done
