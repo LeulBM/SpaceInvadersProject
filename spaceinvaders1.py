@@ -42,18 +42,7 @@ class Agent(object):
                 for x in range(searchleft, searchright):
                     redpix = observation[y][x][0]
                     objfound = colorvalues.get(redpix)
-                    '''
-                    if objfound == "Ground":
-                        pass
-                    elif objfound == "Yellow Text":
-                        pass
-                    elif objfound == "Background":
-                        pass
-                    elif objfound == "Ship":
-                        pass
-                    elif objfound == "Blocker":
-                        pass
-                    '''
+
                     if objfound == "Bullet":
                         if x > ship:
                             return 5
@@ -66,8 +55,9 @@ class Agent(object):
                             return 5
             searchleft -= 10
             searchright += 10
-        if(ship > 80):
-            return 5
+
+        if(searchleft <= 34):
+            return 4
         else:
             return 4
 
