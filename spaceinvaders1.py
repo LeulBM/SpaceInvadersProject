@@ -3,7 +3,6 @@ import sys
 #import pdb
 import gym
 from gym import wrappers, logger
-import random
 
 class Agent(object):
     """The Twitch Shooter"""
