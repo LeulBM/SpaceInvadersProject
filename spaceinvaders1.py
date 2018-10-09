@@ -33,35 +33,43 @@ class Agent(object):
         if ship == -1:
             return 0
 
-        shipleft = ship-3
-        shipright = ship+3
+        searchleft = ship-5
+        searchright = ship+5
 
         # Search column directly above ship
-        for y in range(184, 0, -1):
-            for x in range(shipleft, shipright):
-                redpix = observation[y][x][0]
-                objfound = colorvalues.get(redpix)
-                if objfound == "Ground":
-                    pass
-                elif objfound == "Yellow Text":
-                    pass
-                elif objfound == "Background":
-                    pass
-                elif objfound == "Ship":
-                    pass
-                elif objfound == "Blocker":
-                    pass
-                elif objfound == "Bullet":
-                    if x > ship:
-                        return 5
-                    else:
-                        return 4
-                else:
-                    return random.randint(4,5)
-
-
-
-        return random.randint(4,5);
+        while searchleft > 34 and searchright < 123:
+            for y in range(184, 0, -1):
+                for x in range(searchleft, searchright):
+                    redpix = observation[y][x][0]
+                    objfound = colorvalues.get(redpix)
+                    '''
+                    if objfound == "Ground":
+                        pass
+                    elif objfound == "Yellow Text":
+                        pass
+                    elif objfound == "Background":
+                        pass
+                    elif objfound == "Ship":
+                        pass
+                    elif objfound == "Blocker":
+                        pass
+                    '''
+                    if objfound == "Bullet":
+                        if x > ship:
+                            return 5
+                        else:
+                            return 4
+                    elif objfound == "Alien":
+                        if x > ship:
+                            return 4
+                        else:
+                            return 5
+            searchleft -= 10
+            searchright += 10
+        if(ship > 80):
+            return 5
+        else:
+            return 4
 
 ## YOU MAY NOT MODIFY ANYTHING BELOW THIS LINE OR USE
 ## ANOTHER MAIN PROGRAM
@@ -83,7 +91,7 @@ if __name__ == '__main__':
     outdir = 'random-agent-results'
 
 
-    env.seed()
+    env.seed(0)
     agent = Agent(env.action_space)
 
     episode_count = 100
