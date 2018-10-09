@@ -3,5 +3,5 @@
 trap "exit" INT
 for run in {0..100}
 do
-    python spaceinvaders1.py
+    python space_invaders.py
 done
