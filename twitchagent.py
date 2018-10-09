@@ -17,7 +17,7 @@ class Agent(object):
                 162: "Yellow Text",
                 0: "Background",
                 142: "Bullet",  #
-                181: "Blockers",#
+                181: "Blocker",#
                 50: "Ship",
                 134: "Alien"}   #
 
@@ -35,30 +35,52 @@ class Agent(object):
         searchleft = ship-5
         searchright = ship+5
 
+        shoot = True
+
+        # See if you are under a blocker to determine if agent should shoot
+        for a in range(184, 50, -1):
+            redpix = observation[a][ship][0]
+            objfound = colorvalues.get(redpix)
+            if objfound == "Blocker":
+                shoot = False
+
         # Search column directly above ship
         while searchleft > 34 and searchright < 123:
-            for y in range(184, 0, -1):
+            for y in range(194, 0, -1):
                 for x in range(searchleft, searchright):
                     redpix = observation[y][x][0]
                     objfound = colorvalues.get(redpix)
 
                     if objfound == "Bullet":
                         if x > ship:
-                            return 5
+                            if shoot:
+                                return 5
+                            else:
+                                return 3
                         else:
-                            return 4
+                            if shoot:
+                                return 4
+                            else:
+                                return 2
+
                     elif objfound == "Alien":
                         if x > ship:
-                            return 4
+                            if shoot:
+                                return 4
+                            else:
+                                return 2
                         else:
-                            return 5
-            searchleft -= 10
-            searchright += 10
+                            if shoot:
+                                return 5
+                            else:
+                                return 3
+            searchleft -= 3
+            searchright += 3
 
         if(searchleft <= 34):
             return 4
         else:
-            return 4
+            return 5
 
 ## YOU MAY NOT MODIFY ANYTHING BELOW THIS LINE OR USE
 ## ANOTHER MAIN PROGRAM
